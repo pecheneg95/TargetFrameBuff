@@ -10,7 +10,7 @@
 		</Scripts>
 	</Frame>
 
-	<!-- 11 additional buff buttons (original code from FrameXML/TargetFrame.xml) -->
+	<!-- Оригинальные баффы 6–16 (оставляем как было) -->
 	<Button name="TargetFrameBuff6" inherits="TargetBuffButtonTemplate" id="6" parent="TargetFrame">
 		<Anchors>
 			<Anchor point="TOPLEFT" relativeTo="TargetFrameBuff1" relativePoint="BOTTOMLEFT">
@@ -104,6 +104,299 @@
 	<Button name="TargetFrameBuff16" inherits="TargetBuffButtonTemplate" id="16" parent="TargetFrame">
 		<Anchors>
 			<Anchor point="LEFT" relativeTo="TargetFrameBuff15" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+
+	<!-- Дополнительные баффы 17–32 -->
+	<Button name="TargetFrameBuff17" inherits="TargetBuffButtonTemplate" id="17" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff16" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff18" inherits="TargetBuffButtonTemplate" id="18" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff17" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff19" inherits="TargetBuffButtonTemplate" id="19" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff18" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff20" inherits="TargetBuffButtonTemplate" id="20" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff19" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff21" inherits="TargetBuffButtonTemplate" id="21" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff20" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff22" inherits="TargetBuffButtonTemplate" id="22" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff21" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff23" inherits="TargetBuffButtonTemplate" id="23" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff22" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff24" inherits="TargetBuffButtonTemplate" id="24" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff23" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff25" inherits="TargetBuffButtonTemplate" id="25" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff24" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff26" inherits="TargetBuffButtonTemplate" id="26" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff25" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff27" inherits="TargetBuffButtonTemplate" id="27" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff26" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff28" inherits="TargetBuffButtonTemplate" id="28" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff27" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff29" inherits="TargetBuffButtonTemplate" id="29" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff28" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff30" inherits="TargetBuffButtonTemplate" id="30" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff29" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff31" inherits="TargetBuffButtonTemplate" id="31" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff30" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameBuff32" inherits="TargetBuffButtonTemplate" id="32" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameBuff31" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+
+	<!-- Дополнительные дебаффы 17–32 -->
+	<!-- Additional debuff buttons 17-32 -->
+	<Button name="TargetFrameDebuff17" inherits="TargetDebuffButtonTemplate" id="17" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="TargetFrameDebuff16" relativePoint="BOTTOMLEFT">
+				<Offset>
+					<AbsDimension x="0" y="-2"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff18" inherits="TargetDebuffButtonTemplate" id="18" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff17" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff19" inherits="TargetDebuffButtonTemplate" id="19" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff18" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff20" inherits="TargetDebuffButtonTemplate" id="20" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff19" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff21" inherits="TargetDebuffButtonTemplate" id="21" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff20" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff22" inherits="TargetDebuffButtonTemplate" id="22" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff21" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff23" inherits="TargetDebuffButtonTemplate" id="23" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff22" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff24" inherits="TargetDebuffButtonTemplate" id="24" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff23" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff25" inherits="TargetDebuffButtonTemplate" id="25" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff24" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff26" inherits="TargetDebuffButtonTemplate" id="26" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff25" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff27" inherits="TargetDebuffButtonTemplate" id="27" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff26" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff28" inherits="TargetDebuffButtonTemplate" id="28" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff27" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff29" inherits="TargetDebuffButtonTemplate" id="29" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff28" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff30" inherits="TargetDebuffButtonTemplate" id="30" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff29" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff31" inherits="TargetDebuffButtonTemplate" id="31" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff30" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="3" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="TargetFrameDebuff32" inherits="TargetDebuffButtonTemplate" id="32" parent="TargetFrame">
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="TargetFrameDebuff31" relativePoint="RIGHT">
 				<Offset>
 					<AbsDimension x="3" y="0"/>
 				</Offset>

@@ -1,5 +1,5 @@
 # TargetFrameBuff
-TargetFrameBuff allows you to view up to 16 buffs & debuffs on a target in the default UI.
+TargetFrameBuff allows you to view up to 32 buffs & debuffs on a target in the default UI.
 Mirror of https://wow.curseforge.com/projects/project-949
 
 Supports 1.12.1, but will most likely work on any vanilla patch.
