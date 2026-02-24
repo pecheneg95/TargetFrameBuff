@@ -1,121 +1,165 @@
--- Title: TargetFrameBuff v0.5 (patched for 32 buffs/debuffs + grid)
--- Notes: Shows up to 32 Buffs & Debuffs on a Target in 8x4 grid
--- Author: lua@lumpn.de (patched by Grok)
+-- TargetFrameBuff.lua v2.1 - Кастомное окошко для баффов цели
+-- /tbf toggle / reset / cols 6-12
 
-local lOriginal_TargetDebuffButton_Update = nil;
-local TARGETFRAMEBUFF_MAX_TARGET_DEBUFFS = 32;
-local TARGETFRAMEBUFF_MAX_TARGET_BUFFS = 32;
+local frameName = "TargetBuffWindow"
+local MAX_BUFFS = 40
+local ICON_SIZE_BASE = 24
+local SPACING = 3
+local cols = 8
 
-local ICON_SIZE = 24;       -- размер иконок (можно изменить)
-local SPACING_H = 3;        -- горизонтальный отступ
-local SPACING_V = 2;        -- вертикальный отступ
-local ICONS_PER_ROW = 8;    -- иконок в ряду (8x4 = 32)
+local frame, container, titleText
+local buffs = {}
 
--- Функция позиционирования группы (баффы или дебаффы) в гриде
-local function PositionGroup(prefix, num, startX, startY)
-    for i = 1, num do
-        local button = getglobal(prefix .. i);
-        if (button) then
-            button:ClearAllPoints();
-            local row = math.floor((i - 1) / ICONS_PER_ROW);
-            local col = (i - 1) % ICONS_PER_ROW;
-            local x = startX + col * (ICON_SIZE + SPACING_H);
-            local y = startY - row * (ICON_SIZE + SPACING_V);
-            button:SetPoint("TOPLEFT", "TargetFrame", "BOTTOMLEFT", x, y);
+local function CreateBuffButton(id)
+    local button = CreateFrame("Button", frameName .. "Buff" .. id, container)
+    button:SetWidth(ICON_SIZE_BASE)
+    button:SetHeight(ICON_SIZE_BASE)
+    button:Hide()
+
+    local icon = button:CreateTexture(nil, "BACKGROUND")
+    icon:SetAllPoints()
+    button.icon = icon
+
+    local count = button:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
+    count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 2)
+    count:Hide()
+    button.count = count
+
+    button:SetScript("OnEnter", function()
+        if UnitExists("target") then
+            GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
+            GameTooltip:SetUnitBuff("target", id)
+            GameTooltip:Show()
         end
-    end
+    end)
+    button:SetScript("OnLeave", GameTooltip.Hide)
+
+    buffs[id] = button
+    return button
 end
 
--- hook original update-function
-function TargetFrameBuff_OnLoad()
-    lOriginal_TargetDebuffButton_Update = TargetDebuffButton_Update;
-    TargetDebuffButton_Update = TargetFrameBuff_Update;
-    
-    lOriginal_TargetDebuffButton_Update()
-    TargetFrameBuff_Restore();
-end
-
--- use extended update-function
-function TargetFrameBuff_Update()
-    local num_buff = 0;
-    local num_debuff = 0;
-    local button, buff;
-    for i = 1, TARGETFRAMEBUFF_MAX_TARGET_BUFFS do
-        buff = UnitBuff("target", i);
-        button = getglobal("TargetFrameBuff" .. i);
-        if (buff) then
-            getglobal("TargetFrameBuff" .. i .. "Icon"):SetTexture(buff);
-            button:Show();
-            button.id = i;
-            num_buff = i;
-        else
-            if (button) then
-                button:Hide();
-            end
-        end
+local function UpdateBuffs()
+    if not UnitExists("target") then
+        for _, b in pairs(buffs) do if b then b:Hide() end end
+        return
     end
 
-    local debuff, debuffApplications, debuffCount;
-    for i = 1, TARGETFRAMEBUFF_MAX_TARGET_DEBUFFS do
-        debuff, debuffApplications = UnitDebuff("target", i);
-        button = getglobal("TargetFrameDebuff" .. i);
-        if (debuff) then
-            debuffCount = getglobal("TargetFrameDebuff" .. i .. "Count");
-            if (debuffApplications > 1) then
-                debuffCount:SetText(debuffApplications);
-                debuffCount:Show();
+    local num = 0
+    for i = 1, MAX_BUFFS do
+        local texture, applications = UnitBuff("target", i)
+        local btn = buffs[i] or CreateBuffButton(i)
+
+        if texture then
+            btn.icon:SetTexture(texture)
+            if applications > 1 then
+                btn.count:SetText(applications)
+                btn.count:Show()
             else
-                debuffCount:Hide();
+                btn.count:Hide()
             end
-            getglobal("TargetFrameDebuff" .. i .. "Icon"):SetTexture(debuff);
-            button:Show();
-            button.id = i;
-            num_debuff = i;
+            btn:Show()
+            num = i
         else
-            if (button) then
-                button:Hide();
-            end
+            btn:Hide()
         end
     end
-    
-    -- Позиционирование групп
-    local startX = 5;
-    local startY = 32;
-    if (UnitIsFriend("player", "target")) then
-        -- Баффы сверху, дебаффы снизу
-        PositionGroup("TargetFrameBuff", num_buff, startX, startY);
-        local primary_rows = (num_buff > 0) and (math.floor((num_buff - 1) / ICONS_PER_ROW) + 1) or 0;
-        local sec_startY = startY - primary_rows * (ICON_SIZE + SPACING_V);
-        PositionGroup("TargetFrameDebuff", num_debuff, startX, sec_startY);
-    else
-        -- Дебаффы сверху, баффы снизу
-        PositionGroup("TargetFrameDebuff", num_debuff, startX, startY);
-        local primary_rows = (num_debuff > 0) and (math.floor((num_debuff - 1) / ICONS_PER_ROW) + 1) or 0;
-        local sec_startY = startY - primary_rows * (ICON_SIZE + SPACING_V);
-        PositionGroup("TargetFrameBuff", num_buff, startX, sec_startY);
+
+    -- Репозиционирование
+    local w = container:GetWidth()
+    local iconSize = math.floor((w + SPACING) / (cols + (cols-1)*SPACING/cols)) -- авто-размер
+    local rows = math.ceil(num / cols)
+
+    for i = 1, num do
+        local btn = buffs[i]
+        btn:SetWidth(iconSize)
+        btn:SetHeight(iconSize)
+        btn:ClearAllPoints()
+        local r = math.floor((i-1)/cols)
+        local c = (i-1) % cols
+        btn:SetPoint("TOPLEFT", c * (iconSize + SPACING), -r * (iconSize + SPACING))
     end
+
+    container:SetHeight(rows * (iconSize + SPACING) + 10)
 end
 
-function TargetFrameBuff_Restore()
-    -- Установка размеров для всех иконок
-    for i = 1, TARGETFRAMEBUFF_MAX_TARGET_DEBUFFS do
-        local button = getglobal("TargetFrameDebuff" .. i);
-        local debuffFrame = getglobal("TargetFrameDebuff" .. i .. "Border");
-        if (button) then
-            button:SetWidth(ICON_SIZE);
-            button:SetHeight(ICON_SIZE);
+local function OnLoad()
+    frame = CreateFrame("Frame", frameName, UIParent)
+    frame:SetSize(240, 140)
+    frame:SetPoint("CENTER")
+    frame:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = true, tileSize = 16, edgeSize = 16, insets = {left=4,right=4,top=4,bottom=4}})
+    frame:SetBackdropColor(0,0,0,0.6)
+    frame:SetMovable(true)
+    frame:EnableMouse(true)
+    frame:SetClampedToScreen(true)
+
+    local header = CreateFrame("Button", nil, frame)
+    header:SetPoint("TOPLEFT", 8, -8)
+    header:SetPoint("TOPRIGHT", -8, -8)
+    header:SetHeight(20)
+    header:SetScript("OnMouseDown", frame.StartMoving)
+    header:SetScript("OnMouseUp", frame.StopMovingOrSizing)
+
+    titleText = header:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    titleText:SetPoint("CENTER")
+    titleText:SetText("Target Buffs (cols: "..cols..")")
+
+    container = CreateFrame("Frame", nil, frame)
+    container:SetPoint("TOPLEFT", 8, -30)
+    container:SetPoint("BOTTOMRIGHT", -8, 8)
+
+    -- Grip resize
+    local grip = CreateFrame("Button", nil, frame)
+    grip:SetPoint("BOTTOMRIGHT", -4, 4)
+    grip:SetSize(16,16)
+    grip:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
+    grip:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
+    grip:SetScript("OnMouseDown", function() frame:StartSizing("BOTTOMRIGHT") end)
+    grip:SetScript("OnMouseUp", function() frame:StopMovingOrSizing() UpdateBuffs() end)
+
+    frame:RegisterEvent("PLAYER_TARGET_CHANGED")
+    frame:RegisterEvent("UNIT_AURA")
+    frame:SetScript("OnEvent", function(self, event, unit)
+        if event == "PLAYER_TARGET_CHANGED" or (event == "UNIT_AURA" and unit == "target") then
+            UpdateBuffs()
         end
-        if (debuffFrame) then
-            debuffFrame:SetWidth(ICON_SIZE + 2);
-            debuffFrame:SetHeight(ICON_SIZE + 2);
+    end)
+
+    -- Слэш-команды
+    SLASH_TARGETBUFF1 = "/tbf"
+    SlashCmdList["TARGETBUFF"] = function(msg)
+        msg = string.lower(msg or "")
+        if msg == "toggle" or msg == "" then
+            frame:SetShown(not frame:IsShown())
+            if frame:IsShown() then UpdateBuffs() end
+            print("TargetBuffWindow: " .. (frame:IsShown() and "visible" or "hidden"))
+        elseif msg == "reset" then
+            frame:ClearAllPoints()
+            frame:SetPoint("CENTER")
+            frame:SetSize(240, 140)
+            cols = 8
+            titleText:SetText("Target Buffs (cols: "..cols..")")
+            UpdateBuffs()
+            print("TargetBuffWindow reset")
+        elseif string.match(msg, "^cols %d+$") then
+            local n = tonumber(string.match(msg, "%d+"))
+            if n and n >= 4 and n <= 12 then
+                cols = n
+                titleText:SetText("Target Buffs (cols: "..cols..")")
+                UpdateBuffs()
+                print("Columns set to " .. cols)
+            end
         end
     end
-    
-    for i = 1, TARGETFRAMEBUFF_MAX_TARGET_BUFFS do
-        local button = getglobal("TargetFrameBuff" .. i);
-        if (button) then
-            button:SetWidth(ICON_SIZE);
-            button:SetHeight(ICON_SIZE);
-        end
-    end
+
+    print("|cff88ff88TargetFrameBuff loaded. /tbf toggle / reset / cols 8|r")
+    UpdateBuffs()
 end
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+    if name == "TargetFrameBuff" then
+        OnLoad()
+        self:UnregisterEvent("ADDON_LOADED")
+    end
+end)

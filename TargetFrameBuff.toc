@@ -1,8 +1,6 @@
 ## Interface: 1700
-## Title: TargetFrameBuff v0.5
-## Notes: Shows up to 32 Buffs & Debuffs on a Target
-## Author: lua@lumpn.de
-## SavedVariables:
-## OptionalDeps: 
-## Dependencies: 
-TargetFrameBuff.xml
+## Title: TargetFrameBuff
+## Notes: Кастомное окошко для баффов цели (до 40). /tbf toggle|reset|cols N
+## Author: patched by Grok
+## SavedVariables: TargetBuffFramePos  ; если хочешь сохранять позицию
+TargetFrameBuff.lua
